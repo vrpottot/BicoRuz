@@ -1,0 +1,215 @@
+/**
+ * Основные стили для БИКОРУЗ
+ * Современный дизайн с правильными отступами и типографикой
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Цветовая палитра определяется в themes.css */
+  /* По умолчанию используется синяя тема */
+  
+  /* Нейтральные цвета */
+  --bg-color: #F8F9FA;
+  --bg-secondary: #FFFFFF;
+  --text-primary: #212529;
+  --text-secondary: #6C757D;
+  --text-light: #ADB5BD;
+  
+  /* Границы и тени */
+  --border-color: #E9ECEF;
+  --border-radius: 12px;
+  --border-radius-sm: 8px;
+  --border-radius-lg: 16px;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.12);
+  
+  /* Отступы */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  
+  /* Типографика */
+  --font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 32px;
+  --font-size-4xl: 40px;
+  
+  /* Переходы */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Сайдбар */
+  --sidebar-width: 80px;
+  --sidebar-width-open: 280px;
+}
+
+/* Темы оформления */
+/* Синяя тема (по умолчанию) */
+:root,
+[data-theme="blue"] {
+  --primary-color: #023E8A;
+  --primary-dark: #012A5E;
+  --primary-light: #0077B6;
+  --secondary-color: #48CAE4;
+  --accent-color: #90E0EF;
+  --primary-color-rgb: 2, 62, 138;
+}
+
+/* Зеленая тема */
+[data-theme="green"] {
+  --primary-color: #2E7D32;
+  --primary-dark: #1B5E20;
+  --primary-light: #4CAF50;
+  --secondary-color: #81C784;
+  --accent-color: #A5D6A7;
+  --primary-color-rgb: 46, 125, 50;
+}
+
+/* Красная тема */
+[data-theme="red"] {
+  --primary-color: #C62828;
+  --primary-dark: #B71C1C;
+  --primary-light: #E53935;
+  --secondary-color: #EF5350;
+  --accent-color: #FFCDD2;
+  --primary-color-rgb: 198, 40, 40;
+}
+
+/* Фиолетовая тема */
+[data-theme="purple"] {
+  --primary-color: #6A1B9A;
+  --primary-dark: #4A148C;
+  --primary-light: #8E24AA;
+  --secondary-color: #AB47BC;
+  --accent-color: #CE93D8;
+  --primary-color-rgb: 106, 27, 154;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Типографика */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+}
+
+h1 { font-size: var(--font-size-4xl); }
+h2 { font-size: var(--font-size-3xl); }
+h3 { font-size: var(--font-size-2xl); }
+h4 { font-size: var(--font-size-xl); }
+h5 { font-size: var(--font-size-lg); }
+h6 { font-size: var(--font-size-base); }
+
+p {
+  margin-bottom: var(--spacing-md);
+  color: var(--text-secondary);
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--primary-light);
+}
+
+/* Контейнеры */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 0 var(--spacing-lg);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Уведомления */
+.notification {
+  position: fixed;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  z-index: 10000;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all var(--transition-base);
+}
+
+.notification.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.notification-info {
+  border-left: 4px solid var(--primary-color);
+}
+
+.notification-success {
+  border-left: 4px solid #28a745;
+}
+
+.notification-error {
+  border-left: 4px solid #dc3545;
+}

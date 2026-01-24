@@ -1,0 +1,330 @@
+/**
+ * Стили для страницы расписания
+ */
+
+.schedule-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.schedule-header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.schedule-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-lg);
+  flex-wrap: wrap;
+}
+
+.schedule-title {
+  color: var(--text-primary);
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  margin: 0;
+}
+
+.schedule-header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+  flex-wrap: wrap;
+}
+
+.schedule-tabs {
+  display: flex;
+  gap: var(--spacing-xs);
+  background: var(--bg-secondary);
+  padding: var(--spacing-xs);
+  border-radius: var(--border-radius);
+}
+
+.schedule-tab {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  border-radius: var(--border-radius-sm);
+  white-space: nowrap;
+}
+
+.schedule-tab i {
+  font-size: var(--font-size-lg);
+}
+
+.schedule-tab:hover {
+  background: rgba(var(--primary-color-rgb), 0.1);
+  color: var(--primary-color);
+}
+
+.schedule-tab.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+
+.schedule-search {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-xl);
+  transition: all 0.3s ease;
+}
+
+.schedule-search:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.1);
+}
+
+.schedule-search i {
+  color: var(--text-secondary);
+  font-size: var(--font-size-xl);
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+  width: 100%;
+}
+
+.search-input::placeholder {
+  color: var(--text-light);
+}
+
+.schedule-content {
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  margin-bottom: var(--spacing-xl);
+  border: 1px solid var(--border-color);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-item {
+  display: grid;
+  grid-template-columns: 150px 1fr 120px;
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: var(--bg-secondary);
+}
+
+.schedule-item:last-child {
+  border-bottom: none;
+}
+
+.schedule-item:hover {
+  background: rgba(var(--primary-color-rgb), 0.05);
+}
+
+.item-code {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: var(--font-size-base);
+}
+
+.item-category {
+  color: var(--text-secondary);
+  font-size: var(--font-size-base);
+}
+
+.item-year {
+  color: var(--text-secondary);
+  font-size: var(--font-size-base);
+  text-align: right;
+}
+
+/* Состояния загрузки и ошибок */
+.loading,
+.error,
+.empty {
+  text-align: center;
+  padding: var(--spacing-3xl);
+  color: var(--text-secondary);
+  font-size: var(--font-size-lg);
+}
+
+.loading {
+  color: var(--primary-color);
+}
+
+.error {
+  color: #dc3545;
+}
+
+.empty {
+  color: var(--text-light);
+}
+
+/* Pagination */
+.schedule-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg);
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+.pagination-left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.pagination-label {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.rows-select {
+  padding: var(--spacing-xs) var(--spacing-md);
+  padding-right: var(--spacing-2xl);
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--spacing-sm) center;
+  background-size: 12px;
+}
+
+.rows-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.pagination-center {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.pagination-right {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.pagination-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-btn i {
+  font-size: var(--font-size-lg);
+}
+
+/* Адаптивность */
+@media (max-width: 968px) {
+  .schedule-header-top {
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+
+  .schedule-header-right {
+    flex-direction: column;
+    width: 100%;
+    gap: var(--spacing-md);
+  }
+
+  .schedule-tabs {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .schedule-tab {
+    flex: 1;
+    justify-content: center;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .schedule-container {
+    padding: var(--spacing-md);
+  }
+
+  .schedule-item {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-md);
+  }
+
+  .item-year {
+    text-align: left;
+  }
+
+  .schedule-pagination {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: stretch;
+  }
+
+  .pagination-left,
+  .pagination-center,
+  .pagination-right {
+    justify-content: center;
+  }
+}

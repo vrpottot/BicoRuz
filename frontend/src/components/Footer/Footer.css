@@ -1,0 +1,61 @@
+/**
+ * Стили для footer
+ */
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  height: 48px;
+  background: var(--primary-dark, #2c2c2c);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 998;
+  transition: left var(--transition-base), background-color var(--transition-base);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Когда сайдбар открыт, footer сдвигается */
+.layout:has(.sidebar_menu.open) .footer {
+  left: var(--sidebar-width-open);
+}
+
+.footer__copyright {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.footer__version {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* Адаптивность */
+@media (max-width: 968px) {
+  .footer {
+    left: 0;
+    padding: 0 16px;
+  }
+
+  .layout:has(.sidebar_menu.open) .footer {
+    left: var(--sidebar-width-open);
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    left: 0 !important;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .footer__copyright,
+  .footer__version {
+    font-size: 12px;
+  }
+}

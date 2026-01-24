@@ -1,0 +1,54 @@
+/**
+ * Дополнительные стили для страницы учебы
+ */
+
+.study-layout {
+  min-height: 600px;
+}
+
+.study-sidebar {
+  max-height: calc(100vh - var(--spacing-3xl));
+  overflow-y: auto;
+}
+
+.study-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.study-sidebar::-webkit-scrollbar-track {
+  background: var(--bg-color);
+  border-radius: 3px;
+}
+
+.study-sidebar::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 3px;
+}
+
+.search-form input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(2, 62, 138, 0.1);
+}
+
+/* Адаптивность */
+@media (max-width: 968px) {
+  .study-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .study-sidebar {
+    position: static !important;
+    max-height: none;
+  }
+}
+
+.study-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+.study-container h1 {
+  margin-bottom: var(--spacing-lg);
+}

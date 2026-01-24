@@ -1,0 +1,53 @@
+/**
+ * Основной контент
+ */
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  margin-left: var(--sidebar-width);
+  margin-top: 64px;
+  margin-bottom: 48px;
+  min-height: calc(100vh - 64px - 48px);
+  transition: margin-left var(--transition-base);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  overflow-x: hidden;
+  width: calc(100% - var(--sidebar-width));
+  box-sizing: border-box;
+}
+
+/* Когда сайдбар открыт, контент сдвигается */
+.layout:has(.sidebar_menu.open) .main-content {
+  margin-left: var(--sidebar-width-open);
+  width: calc(100% - var(--sidebar-width-open));
+}
+
+/* Стили для страниц авторизации */
+.layout--auth .main-content--auth {
+  margin-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    margin-top: 64px;
+    padding: var(--spacing-md);
+    width: 100%;
+  }
+  
+  .layout:has(.sidebar_menu.open) .main-content,
+  .layout:has(.sidebar_menu:hover) .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+}

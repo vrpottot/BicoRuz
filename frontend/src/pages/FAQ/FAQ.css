@@ -1,0 +1,167 @@
+/**
+ * Стили для страницы FAQ
+ */
+
+.faq-page {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 64px - var(--spacing-xl) * 2);
+  padding-bottom: var(--spacing-3xl);
+}
+
+.acor-container {
+  max-width: 900px;
+  margin: 0 auto;
+  flex: 1;
+}
+
+.acor-container input[type="checkbox"] {
+  display: none;
+}
+
+.acor-container label {
+  display: block;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-sm);
+  transition: all var(--transition-base);
+  position: relative;
+  padding-right: 60px;
+}
+
+.acor-container label::after {
+  content: '+';
+  position: absolute;
+  right: var(--spacing-xl);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--font-size-2xl);
+  color: var(--primary-color);
+  font-weight: 300;
+  transition: transform var(--transition-base);
+}
+
+.acor-container input[type="checkbox"]:checked + label,
+.acor-container input[type="checkbox"]:checked ~ label {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+
+.acor-container input[type="checkbox"]:checked + label::after,
+.acor-container input[type="checkbox"]:checked ~ label::after {
+  content: '−';
+  transform: translateY(-50%) rotate(0deg);
+  color: #fff;
+}
+
+/* Стили для React компонента с классом checked на label */
+.acor-container label.checked {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+
+.acor-container label.checked::after {
+  content: '−';
+  transform: translateY(-50%) rotate(0deg);
+  color: #fff;
+}
+
+.acor-container label:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.acor-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-base), padding var(--transition-base);
+  padding: 0 var(--spacing-xl);
+  background: var(--bg-secondary);
+  border-left: 3px solid var(--primary-color);
+  margin-bottom: var(--spacing-sm);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+.acor-container input[type="checkbox"]:checked ~ .acor-body,
+.acor-body.open {
+  max-height: 1000px;
+  padding: var(--spacing-xl);
+}
+
+.acor-body p {
+  margin-bottom: var(--spacing-md);
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.acor-body ol,
+.acor-body ul {
+  margin: var(--spacing-md) 0;
+  padding-left: var(--spacing-xl);
+}
+
+.acor-body li {
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+.acor-body strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.contact-section {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+  color: #fff;
+  text-align: center;
+  margin-top: auto;
+  padding: var(--spacing-2xl);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.contact-section h2 {
+  color: #fff !important;
+  margin-bottom: var(--spacing-md);
+}
+
+.contact-section p {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.contact-section a {
+  color: #fff !important;
+  text-decoration: underline;
+}
+
+.contact-section a:hover {
+  opacity: 0.8;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .acor-container label {
+    padding: var(--spacing-md) var(--spacing-lg);
+    font-size: var(--font-size-base);
+    padding-right: 50px;
+  }
+
+  .acor-body {
+    padding: var(--spacing-md) !important;
+  }
+}
