@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 import './Login.css'
 
@@ -8,16 +8,16 @@ function Login() {
   const location = useLocation()
   const { login, register } = useAuth()
   
-  // Определяем, показывать ли форму регистрации при загрузке
   const [isSignUp, setIsSignUp] = useState(location.pathname === '/register')
   
-  // Состояние для формы входа
+  // Login State
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
   const [loginError, setLoginError] = useState('')
   const [loginLoading, setLoginLoading] = useState(false)
+  const [showLoginPassword, setShowLoginPassword] = useState(false)
   
-  // Состояние для формы регистрации
+  // Register State
   const [registerData, setRegisterData] = useState({
     email: '',
     firstName: '',
@@ -28,19 +28,17 @@ function Login() {
   })
   const [registerError, setRegisterError] = useState('')
   const [registerLoading, setRegisterLoading] = useState(false)
+  const [showRegPassword, setShowRegPassword] = useState(false)
 
   useEffect(() => {
-    // Если пришли с /register, показываем форму регистрации
-    if (location.pathname === '/register') {
-      setIsSignUp(true)
-    }
+    setIsSignUp(location.pathname === '/register')
   }, [location.pathname])
 
-  const handleSwitch = () => {
+  const toggleMode = (e: React.MouseEvent) => {
+    e.preventDefault()
     setIsSignUp(!isSignUp)
     setLoginError('')
     setRegisterError('')
-    // Обновляем URL без перезагрузки
     navigate(isSignUp ? '/login' : '/register', { replace: true })
   }
 
@@ -53,7 +51,7 @@ function Login() {
       await login(loginEmail, loginPassword)
       navigate('/')
     } catch (err: any) {
-      setLoginError(err.message || 'Ошибка входа')
+      setLoginError(err.message || 'Неверный email или пароль')
     } finally {
       setLoginLoading(false)
     }
@@ -73,11 +71,6 @@ function Login() {
       return
     }
 
-    if (!registerData.firstName || !registerData.lastName) {
-      setRegisterError('Имя и фамилия обязательны для заполнения')
-      return
-    }
-
     setRegisterLoading(true)
 
     try {
@@ -90,122 +83,212 @@ function Login() {
       )
       navigate('/')
     } catch (err: any) {
-      setRegisterError(err.message || 'Ошибка регистрации')
+      setRegisterError(err.message || 'Ошибка регистрации. Попробуйте другой email.')
     } finally {
       setRegisterLoading(false)
     }
   }
 
   return (
-    <div className="login-page-wrapper">
-      <div className="main">
-      <div className={`container a-container ${isSignUp ? 'is-txl' : ''}`} id="a-container">
-        <form id="a-form" className="form" onSubmit={handleRegister}>
-          <h2 className="form_title title">Создать аккаунт</h2>
-          {registerError && <div className="form-error">{registerError}</div>}
-          <input 
-            className="form__input" 
-            type="email" 
-            placeholder="Email"
-            value={registerData.email}
-            onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })}
-            required
-          />
-          <input 
-            className="form__input" 
-            type="text" 
-            placeholder="Имя" 
-            value={registerData.firstName}
-            onChange={(e) => setRegisterData({ ...registerData, firstName: e.target.value })}
-            required
-          />
-          <input 
-            className="form__input" 
-            type="text" 
-            placeholder="Фамилия" 
-            value={registerData.lastName}
-            onChange={(e) => setRegisterData({ ...registerData, lastName: e.target.value })}
-            required
-          />
-          <input 
-            className="form__input" 
-            type="text" 
-            placeholder="Отчество" 
-            value={registerData.middleName}
-            onChange={(e) => setRegisterData({ ...registerData, middleName: e.target.value })}
-          />
-          <input 
-            className="form__input" 
-            type="password" 
-            placeholder="Пароль"
-            value={registerData.password}
-            onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
-            required
-          />
-          <input 
-            className="form__input" 
-            type="password" 
-            placeholder="Подтверждение пароля"
-            value={registerData.confirmPassword}
-            onChange={(e) => setRegisterData({ ...registerData, confirmPassword: e.target.value })}
-            required
-          />
-          <button className="form__button button submit" type="submit" disabled={registerLoading}>
-            {registerLoading ? 'Регистрация...' : 'РЕГИСТРАЦИЯ'}
-          </button>
-        </form>
+    <div className="auth-layout">
+      {/* Левая часть с брендингом (скрыта на мобильных) */}
+      <div className="auth-sidebar fade-in">
+        <div className="auth-sidebar-content">
+          <Link to="/" className="auth-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="auth-logo-icon">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+            </svg>
+            BicoRuz
+          </Link>
+          <h1 className="auth-sidebar-title">
+            {isSignUp ? 'Начните свой путь к знаниям' : 'Добро пожаловать обратно'}
+          </h1>
+          <p className="auth-sidebar-desc">
+            Управляйте своим расписанием, отслеживайте успеваемость и будьте в курсе всех университетских событий в одном удобном месте.
+          </p>
+          
+          <div className="auth-features">
+            <div className="auth-feature">
+              <div className="auth-feature-icon">✨</div>
+              <span>Умное расписание и уведомления</span>
+            </div>
+            <div className="auth-feature">
+              <div className="auth-feature-icon">📊</div>
+              <span>Аналитика вашей успеваемости</span>
+            </div>
+            <div className="auth-feature">
+              <div className="auth-feature-icon">🚀</div>
+              <span>Быстрый доступ к учебным материалам</span>
+            </div>
+          </div>
+        </div>
+        <div className="auth-sidebar-bg"></div>
       </div>
 
-      <div className={`container b-container ${isSignUp ? 'is-txl is-z200' : ''}`} id="b-container">
-        <form id="b-form" className="form" onSubmit={handleLogin}>
-          <h2 className="form_title title">Вход на сайт</h2>
-          {loginError && <div className="form-error">{loginError}</div>}
-          <input 
-            className="form__input" 
-            type="email" 
-            placeholder="Email"
-            value={loginEmail}
-            onChange={(e) => setLoginEmail(e.target.value)}
-            required
-          />
-          <input 
-            className="form__input" 
-            type="password" 
-            placeholder="Пароль"
-            value={loginPassword}
-            onChange={(e) => setLoginPassword(e.target.value)}
-            required
-          />
-          <a className="form__link" href="#">Забыли пароль?</a>
-          <button className="form__button button submit" type="submit" disabled={loginLoading}>
-            {loginLoading ? 'Вход...' : 'ВОЙТИ'}
-          </button>
-        </form>
-      </div>
+      {/* Правая часть с формой */}
+      <div className="auth-form-wrapper fade-in">
+        <div className="auth-form-container">
+          
+          {/* Мобильный логотип */}
+          <Link to="/" className="auth-logo-mobile">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="auth-logo-icon">
+              <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20" />
+            </svg>
+            BicoRuz
+          </Link>
 
-      <div className={`switch ${isSignUp ? 'is-txr' : ''}`} id="switch-cnt">
-        <div className={`switch__circle ${isSignUp ? 'is-txr' : ''}`}></div>
-        <div className={`switch__circle switch__circle--t ${isSignUp ? 'is-txr' : ''}`}></div>
-        <div className={`switch__container ${isSignUp ? 'is-hidden' : ''}`} id="switch-c1">
-          <h2 className="switch__title title">С возвращением!</h2>
-          <p className="switch__description description">
-            Чтобы оставаться на связи с нами, пожалуйста, войдите, используя свои личные данные
+          <div className="auth-header">
+            <h2>{isSignUp ? 'Создать аккаунт' : 'Вход в систему'}</h2>
+            <p>
+              {isSignUp ? 'Уже есть аккаунт? ' : 'Нет аккаунта? '}
+              <a href="#" onClick={toggleMode} className="auth-toggle-link">
+                {isSignUp ? 'Войти' : 'Зарегистрироваться'}
+              </a>
+            </p>
+          </div>
+
+          {!isSignUp ? (
+            // Форма входа
+            <form onSubmit={handleLogin} className="auth-form fade-in">
+              {loginError && <div className="auth-error">{loginError}</div>}
+              
+              <div className="form-group">
+                <label>Email</label>
+                <input 
+                  type="email" 
+                  placeholder="name@university.edu"
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <div className="form-label-row">
+                  <label>Пароль</label>
+                  <a href="#" className="forgot-password">Забыли пароль?</a>
+                </div>
+                <div className="password-input-wrap">
+                  <input 
+                    type={showLoginPassword ? "text" : "password"} 
+                    placeholder="••••••••"
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    required
+                  />
+                  <button 
+                    type="button" 
+                    className="password-toggle"
+                    onClick={() => setShowLoginPassword(!showLoginPassword)}
+                  >
+                    {showLoginPassword ? 'Скрыть' : 'Показать'}
+                  </button>
+                </div>
+              </div>
+
+              <button type="submit" className="auth-submit-btn" disabled={loginLoading}>
+                {loginLoading ? (
+                  <span className="spinner"></span>
+                ) : (
+                  'Войти'
+                )}
+              </button>
+            </form>
+          ) : (
+            // Форма регистрации
+            <form onSubmit={handleRegister} className="auth-form fade-in">
+              {registerError && <div className="auth-error">{registerError}</div>}
+              
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Имя *</label>
+                  <input 
+                    type="text" 
+                    placeholder="Иван" 
+                    value={registerData.firstName}
+                    onChange={(e) => setRegisterData({ ...registerData, firstName: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Фамилия *</label>
+                  <input 
+                    type="text" 
+                    placeholder="Иванов" 
+                    value={registerData.lastName}
+                    onChange={(e) => setRegisterData({ ...registerData, lastName: e.target.value })}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Отчество (опционально)</label>
+                <input 
+                  type="text" 
+                  placeholder="Иванович" 
+                  value={registerData.middleName}
+                  onChange={(e) => setRegisterData({ ...registerData, middleName: e.target.value })}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Email *</label>
+                <input 
+                  type="email" 
+                  placeholder="name@university.edu"
+                  value={registerData.email}
+                  onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Пароль *</label>
+                <div className="password-input-wrap">
+                  <input 
+                    type={showRegPassword ? "text" : "password"} 
+                    placeholder="Минимум 6 символов"
+                    value={registerData.password}
+                    onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
+                    required
+                  />
+                  <button 
+                    type="button" 
+                    className="password-toggle"
+                    onClick={() => setShowRegPassword(!showRegPassword)}
+                  >
+                    {showRegPassword ? 'Скрыть' : 'Показать'}
+                  </button>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Подтвердите пароль *</label>
+                <input 
+                  type={showRegPassword ? "text" : "password"} 
+                  placeholder="••••••••"
+                  value={registerData.confirmPassword}
+                  onChange={(e) => setRegisterData({ ...registerData, confirmPassword: e.target.value })}
+                  required
+                />
+              </div>
+
+              <button type="submit" className="auth-submit-btn" disabled={registerLoading}>
+                {registerLoading ? (
+                  <span className="spinner"></span>
+                ) : (
+                  'Создать аккаунт'
+                )}
+              </button>
+            </form>
+          )}
+
+          <p className="auth-footer-text">
+            Продолжая, вы соглашаетесь с нашими <a href="#">Условиями использования</a> и <a href="#">Политикой конфиденциальности</a>.
           </p>
-          <button className="switch__button button switch-btn" onClick={handleSwitch}>
-            ВОЙТИ
-          </button>
-        </div>
-        <div className={`switch__container ${!isSignUp ? 'is-hidden' : ''}`} id="switch-c2">
-          <h2 className="switch__title title">Привет, друг!</h2>
-          <p className="switch__description description">
-            Введите свои личные данные и начните путешествие с нами
-          </p>
-          <button className="switch__button button switch-btn" onClick={handleSwitch}>
-            РЕГИСТРАЦИЯ
-          </button>
         </div>
       </div>
-    </div>
     </div>
   )
 }

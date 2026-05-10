@@ -1,30 +1,35 @@
 /**
  * Основные стили для БИКОРУЗ
- * Современный дизайн с правильными отступами и типографикой
+ * Современный дизайн Data-Dense Dashboard (Cyan/Clean Green)
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Цветовая палитра определяется в themes.css */
-  /* По умолчанию используется синяя тема */
-  
   /* Нейтральные цвета */
-  --bg-color: #F8F9FA;
+  --bg-color: #ECFEFF; /* Светлый циан для фона */
   --bg-secondary: #FFFFFF;
-  --text-primary: #212529;
-  --text-secondary: #6C757D;
-  --text-light: #ADB5BD;
+  --text-primary: #164E63; /* Темный циан для текста */
+  --text-secondary: #0891B2;
+  --text-light: #64748B;
   
+  /* Основные цвета (Cyan/Green) */
+  --primary-color: #0891B2;
+  --primary-dark: #0E7490;
+  --primary-light: #22D3EE;
+  --secondary-color: #22D3EE;
+  --accent-color: #22C55E; /* CTA Green */
+  --primary-color-rgb: 8, 145, 178;
+
   /* Границы и тени */
-  --border-color: #E9ECEF;
+  --border-color: #CFFAFE;
   --border-radius: 12px;
   --border-radius-sm: 8px;
   --border-radius-lg: 16px;
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.12);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   
   /* Отступы */
   --spacing-xs: 4px;
@@ -36,7 +41,8 @@
   --spacing-3xl: 64px;
   
   /* Типографика */
-  --font-family: 'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-heading: 'Poppins', sans-serif;
   --font-size-xs: 12px;
   --font-size-sm: 14px;
   --font-size-base: 16px;
@@ -56,46 +62,45 @@
   --sidebar-width-open: 280px;
 }
 
-/* Темы оформления */
-/* Синяя тема (по умолчанию) */
-:root,
+/* Дополнительные темы (оставляем для совместимости, но адаптируем) */
 [data-theme="blue"] {
-  --primary-color: #023E8A;
-  --primary-dark: #012A5E;
-  --primary-light: #0077B6;
-  --secondary-color: #48CAE4;
-  --accent-color: #90E0EF;
-  --primary-color-rgb: 2, 62, 138;
+  --primary-color: #2563EB;
+  --primary-dark: #1D4ED8;
+  --primary-light: #60A5FA;
+  --secondary-color: #3B82F6;
+  --accent-color: #F97316;
+  --bg-color: #F8FAFC;
+  --primary-color-rgb: 37, 99, 235;
 }
 
-/* Зеленая тема */
 [data-theme="green"] {
-  --primary-color: #2E7D32;
-  --primary-dark: #1B5E20;
-  --primary-light: #4CAF50;
-  --secondary-color: #81C784;
-  --accent-color: #A5D6A7;
-  --primary-color-rgb: 46, 125, 50;
+  --primary-color: #16A34A;
+  --primary-dark: #15803D;
+  --primary-light: #4ADE80;
+  --secondary-color: #22C55E;
+  --accent-color: #EAB308;
+  --bg-color: #F0FDF4;
+  --primary-color-rgb: 22, 163, 74;
 }
 
-/* Красная тема */
 [data-theme="red"] {
-  --primary-color: #C62828;
-  --primary-dark: #B71C1C;
-  --primary-light: #E53935;
-  --secondary-color: #EF5350;
-  --accent-color: #FFCDD2;
-  --primary-color-rgb: 198, 40, 40;
+  --primary-color: #DC2626;
+  --primary-dark: #B91C1C;
+  --primary-light: #F87171;
+  --secondary-color: #EF4444;
+  --accent-color: #FCA5A5;
+  --bg-color: #FEF2F2;
+  --primary-color-rgb: 220, 38, 38;
 }
 
-/* Фиолетовая тема */
 [data-theme="purple"] {
-  --primary-color: #6A1B9A;
-  --primary-dark: #4A148C;
-  --primary-light: #8E24AA;
-  --secondary-color: #AB47BC;
-  --accent-color: #CE93D8;
-  --primary-color-rgb: 106, 27, 154;
+  --primary-color: #9333EA;
+  --primary-dark: #7E22CE;
+  --primary-light: #C084FC;
+  --secondary-color: #A855F7;
+  --accent-color: #F0ABFC;
+  --bg-color: #FAF5FF;
+  --primary-color-rgb: 147, 51, 234;
 }
 
 * {
@@ -122,10 +127,12 @@ body {
 
 /* Типографика */
 h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: var(--spacing-md);
   color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
 h1 { font-size: var(--font-size-4xl); }
@@ -137,17 +144,36 @@ h6 { font-size: var(--font-size-base); }
 
 p {
   margin-bottom: var(--spacing-md);
-  color: var(--text-secondary);
+  color: var(--text-primary);
+  opacity: 0.85;
 }
 
 a {
   text-decoration: none;
   color: var(--primary-color);
-  transition: color var(--transition-fast);
+  transition: color var(--transition-base), transform var(--transition-fast);
+  cursor: pointer;
+  display: inline-block;
 }
 
 a:hover {
   color: var(--primary-light);
+}
+
+button, .button, .btn {
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: var(--font-family-heading);
+  font-weight: 500;
+}
+
+button:hover, .button:hover, .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+button:active, .button:active, .btn:active {
+  transform: translateY(0);
 }
 
 /* Контейнеры */
@@ -164,6 +190,22 @@ a:hover {
 
 #root {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Интерактивные элементы (карточки и прочее) */
+.card, .dashboard-widget {
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.card:hover, .dashboard-widget:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 /* Анимации */
@@ -179,7 +221,7 @@ a:hover {
 }
 
 .fade-in {
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Уведомления */
@@ -195,6 +237,7 @@ a:hover {
   opacity: 0;
   transform: translateX(100%);
   transition: all var(--transition-base);
+  border-left: 4px solid var(--primary-color);
 }
 
 .notification.show {
@@ -203,13 +246,32 @@ a:hover {
 }
 
 .notification-info {
-  border-left: 4px solid var(--primary-color);
+  border-left-color: var(--primary-color);
 }
 
 .notification-success {
-  border-left: 4px solid #28a745;
+  border-left-color: var(--accent-color);
 }
 
 .notification-error {
-  border-left: 4px solid #dc3545;
+  border-left-color: #dc3545;
+}
+
+/* Стилизация скроллбара */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
 }
